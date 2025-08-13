@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeless Wisdom Finder - PDF Version</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: white;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* PDF-optimized containers */
+        .pdf-wisdom-container {
+            max-width: 500px;
+            margin: 15px auto;
+            background: linear-gradient(135deg, #5e17e6, #4c1d95);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(94, 23, 230, 0.15);
+            transition: all 0.3s ease;
+            page-break-inside: avoid;
+        }
+
+        .pdf-wisdom-header {
+            background: linear-gradient(135deg, #997a64, #b8956b);
+            padding: 12px 16px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pdf-wisdom-header h3 {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .pdf-wisdom-header p {
+            font-size: 0.8em;
+            opacity: 0.9;
+            margin: 2px 0 0 0;
+        }
+
+        .pdf-expand-arrow {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            font-size: 1em;
+            transition: transform 0.3s ease;
+        }
+
+        .pdf-wisdom-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+
+        .pdf-wisdom-content.expanded {
+            max-height: 500px;
+        }
+
+        .pdf-wisdom-inner {
+            padding: 16px;
+        }
+
+        .pdf-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-family: inherit;
+            resize: none;
+            height: 35px;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-textarea:focus {
+            outline: none;
+            border-color: #997a64;
+            height: 70px;
+            box-shadow: 0 0 0 2px rgba(153, 122, 100, 0.1);
+        }
+
+        .pdf-button {
+            width: 100%;
+            background: linear-gradient(135deg, #997a64, #b8956b);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .pdf-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(153, 122, 100, 0.3);
+        }
+
+        .pdf-wisdom-result {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2px solid #997a64;
+        }
+
+        .pdf-quote {
+            font-size: 0.9em;
+            font-style: italic;
+            color: #5e17e6;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .pdf-author {
+            text-align: right;
+            color: #6b7280;
+            font-size: 0.75em;
+            margin-bottom: 8px;
+        }
+
+        .pdf-reflection {
+            font-size: 0.8em;
+            color: #374151;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .pdf-journal {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 2px solid #5e17e6;
+            font-size: 0.75em;
+        }
+
+        .pdf-journal h4 {
+            color: #997a64;
+            margin-bottom: 4px;
+            font-size: 0.8em;
+        }
+
+        /* PDF Email CTA */
+        .pdf-email-container {
+            max-width: 500px;
+            margin: 20px auto 15px;
+            background: linear-gradient(135deg, #5e17e6, #4c1d95);
+            border-radius: 6px;
+            padding: 16px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 8px rgba(94, 23, 230, 0.15);
+            page-break-inside: avoid;
+        }
+
+        .pdf-email-container h3 {
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+
+        .pdf-email-container p {
+            font-size: 0.8em;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .pdf-email-form {
+            display: flex;
+            gap: 6px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .pdf-email-input {
+            flex: 1;
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+
+        .pdf-email-button {
+            background: #997a64;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8em;
+            white-space: nowrap;
+        }
+
+        .pdf-email-button:hover {
+            background: #7a5f4f;
+        }
+
+        /* PDF-specific optimizations */
+        .pdf-fallback {
+            display: none;
+            padding: 16px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            margin: 15px auto;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .pdf-fallback h4 {
+            color: #5e17e6;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .pdf-fallback p {
+            font-size: 0.85em;
+            color: #6b7280;
+            margin-bottom: 8px;
+        }
+
+        .pdf-qr-placeholder {
+            width: 80px;
+            height: 80px;
+            background: #e5e7eb;
+            margin: 8px auto;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7em;
+            color: #6b7280;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            .pdf-wisdom-container, .pdf-email-container {
+                box-shadow: none;
+                border: 1px solid #e5e7eb;
+            }
+            
+            .pdf-fallback {
+                display: block;
+            }
+            
+            .pdf-wisdom-container {
+                display: none;
+            }
+        }
+
+        /* Mobile optimization for PDF viewers */
+        @media (max-width: 500px) {
+            .pdf-wisdom-container, .pdf-email-container {
+                margin: 15px 10px;
+                border-radius: 6px;
+            }
+            
+            .pdf-email-form {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* Demo content for PDF context */
+        .pdf-demo-content {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .pdf-demo-content h2 {
+            color: #5e17e6;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .pdf-demo-content p {
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <!-- PDF Demo Content -->
+    <div class="pdf-demo-content">
+        <h2>Monthly Reflection: Finding Inner Balance</h2>
+        <p>In this month's personal development focus, we're exploring how ancient wisdom can guide us through modern challenges. Whether you're facing workplace stress, relationship dynamics, or personal growth questions...</p>
+    </div>
+
+    <!-- INTERACTIVE WISDOM FINDER - PDF VERSION -->
+    <div class="pdf-wisdom-container">
+        <div class="pdf-wisdom-header" onclick="togglePDFWisdom()">
+            <h3>Tap Into Ancient Wisdom</h3>
+            <p>60 seconds of reflection for your current challenge</p>
+            <span class="pdf-expand-arrow">▼</span>
+        </div>
+        
+        <div class="pdf-wisdom-content" id="pdfWisdomContent">
+            <div class="pdf-wisdom-inner">
+                <textarea 
+                    id="pdfChallenge" 
+                    class="pdf-textarea"
+                    placeholder="What's on your mind?"
+                ></textarea>
+                
+                <button class="pdf-button" onclick="revealPDFWisdom()">Reveal My Wisdom</button>
+                
+                <div id="pdfWisdomResult" class="pdf-wisdom-result">
+                    <div class="pdf-quote" id="pdfWisdomQuote"></div>
+                    <div class="pdf-author" id="pdfWisdomAuthor"></div>
+                    <div class="pdf-reflection" id="pdfWisdomReflection"></div>
+                    <div class="pdf-journal">
+                        <h4>✨ Journal Prompt:</h4>
+                        <p id="pdfJournalPrompt"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF FALLBACK for non-interactive PDF readers -->
+    <div class="pdf-fallback">
+        <h4>Interactive Wisdom Tool</h4>
+        <p>For the full interactive experience, visit:</p>
+        <div class="pdf-qr-placeholder">QR Code</div>
+        <p style="font-size: 0.75em;">3cthreadtosuccess.com/wisdom</p>
+    </div>
+
+    <!-- Continue PDF content -->
+    <div class="pdf-demo-content">
+        <p>The beauty of ancient wisdom lies in its timeless relevance. Stoic philosophy, Eastern teachings, and indigenous wisdom traditions all point to similar truths about resilience, acceptance, and inner peace...</p>
+    </div>
+
+    <!-- PDF EMAIL CTA -->
+    <div class="pdf-email-container">
+        <h3>➤ Weekly Wisdom in Your Inbox</h3>
+        <p>Join our Inner Growth Letters community</p>
+        <div class="pdf-email-form">
+            <input type="email" class="pdf-email-input" placeholder="Your email" id="pdfEmailInput">
+            <button class="pdf-email-button" onclick="subscribePDFWisdom()">Join Free</button>
+        </div>
+    </div>
+
+    <div class="pdf-demo-content">
+        <p>Remember, wisdom isn't about having all the answers—it's about cultivating the right questions and remaining open to the insights that emerge when we create space for reflection.</p>
+    </div>
+
+    <script>
+        const pdfWisdomDatabase = [
+            {
+                keywords: ['anger', 'mad', 'frustrated', 'annoyed', 'irritated', 'furious'],
+                quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+                author: "Marcus Aurelius",
+                reflection: "Anger feels like fire consuming us, but wisdom reminds us that our reactions are the one thing we truly control.",
+                prompt: "Write about what aspects of your anger were within your control vs. outside circumstances."
+            },
+            {
+                keywords: ['anxious', 'anxiety', 'worry', 'worried', 'nervous', 'stressed', 'stress'],
+                quote: "If you are facing in the right direction, all you need to do is keep on walking.",
+                author: "Buddhist Proverb",
+                reflection: "Anxiety whispers we need to solve everything at once, but wisdom teaches progress comes one step at a time.",
+                prompt: "Identify one small, concrete action you can take today toward what you're worried about."
+            },
+            {
+                keywords: ['sad', 'sadness', 'depressed', 'down', 'blue', 'melancholy', 'grief'],
+                quote: "The wound is the place where the Light enters you.",
+                author: "Rumi",
+                reflection: "Sadness isn't a flaw to fix but a doorway to deeper understanding and compassion.",
+                prompt: "What has this period of sadness taught you that you might not have learned otherwise?"
+            },
+            {
+                keywords: ['lost', 'confused', 'direction', 'purpose', 'meaning', 'path', 'unclear'],
+                quote: "The journey of a thousand miles begins with one step.",
+                author: "Lao Tzu",
+                reflection: "Feeling lost isn't about lacking destination—it's expecting to see the entire journey from where you stand.",
+                prompt: "What values feel most true to you right now? What one small step aligns with those values?"
+            },
+            {
+                keywords: ['overwhelmed', 'too much', 'busy', 'chaos', 'scattered', 'burden'],
+                quote: "You are not required to finish the work, but neither are you free to abandon it.",
+                author: "Rabbi Tarfon",
+                reflection: "Overwhelm comes from believing we must complete everything perfectly. Focus on your part, release the rest.",
+                prompt: "List what's overwhelming you. Circle only what's truly yours to handle today."
+            },
+            {
+                keywords: ['lonely', 'alone', 'isolated', 'disconnected', 'solitude'],
+                quote: "All cruelty springs from weakness.",
+                author: "Seneca",
+                reflection: "When disconnected from others, we're usually first disconnected from ourselves. Solitude can become sacred space.",
+                prompt: "When alone with yourself, what thoughts arise that you might be avoiding?"
+            },
+            {
+                keywords: ['failure', 'failed', 'mistake', 'wrong', 'embarrassed', 'shame'],
+                quote: "Our greatest glory is not in never falling, but in rising every time we fall.",
+                author: "Confucius",
+                reflection: "'Failure' is often just information about what doesn't work, bringing you closer to what does.",
+                prompt: "How might you reframe your recent 'failure' as tuition paid toward mastery?"
+            },
+            {
+                keywords: ['change', 'transition', 'uncertainty', 'unknown', 'different', 'transformation'],
+                quote: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
+                author: "Alan Watts",
+                reflection: "We resist change by mistaking our current identity for our true self. We're like rivers—always flowing, always becoming.",
+                prompt: "What aspects of your old self are you grieving? What new qualities are trying to emerge?"
+            }
+        ];
+
+        function togglePDFWisdom() {
+            const content = document.getElementById('pdfWisdomContent');
+            const arrow = document.querySelector('.pdf-expand-arrow');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                arrow.style.transform = 'translateY(-50%) rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                arrow.style.transform = 'translateY(-50%) rotate(180deg)';
+                setTimeout(() => {
+                    document.getElementById('pdfChallenge').focus();
+                }, 400);
+            }
+        }
+
+        function revealPDFWisdom() {
+            const challenge = document.getElementById('pdfChallenge').value.toLowerCase().trim();
+            
+            if (!challenge) {
+                alert('Please share what\'s on your mind first.');
+                return;
+            }
+
+            let selectedWisdom = null;
+            for (let wisdom of pdfWisdomDatabase) {
+                if (wisdom.keywords.some(keyword => challenge.includes(keyword))) {
+                    selectedWisdom = wisdom;
+                    break;
+                }
+            }
+
+            if (!selectedWisdom) {
+                selectedWisdom = {
+                    quote: "Be yourself; everyone else is already taken.",
+                    author: "Oscar Wilde",
+                    reflection: "Life's challenges often come from trying to meet expectations that aren't truly ours.",
+                    prompt: "Where might you be betraying your authentic self to meet external expectations?"
+                };
+            }
+
+            document.getElementById('pdfWisdomQuote').textContent = `"${selectedWisdom.quote}"`;
+            document.getElementById('pdfWisdomAuthor').textContent = `— ${selectedWisdom.author}`;
+            document.getElementById('pdfWisdomReflection').textContent = selectedWisdom.reflection;
+            document.getElementById('pdfJournalPrompt').textContent = selectedWisdom.prompt;
+            
+            document.getElementById('pdfWisdomResult').style.display = 'block';
+        }
+
+        function subscribePDFWisdom() {
+            const email = document.getElementById('pdfEmailInput').value.trim();
+            
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const subject = encodeURIComponent('Inner Growth Letters - PDF Subscription');
+            const body = encodeURIComponent(`Hello!
+
+I found your Timeless Wisdom tool in your monthly PDF and would love to receive weekly wisdom from 3C Thread To Success.
+
+Email: ${email}
+
+Thank you!`);
+            
+            window.location.href = `mailto:3c.innertherapy@gmail.com?subject=${subject}&body=${body}`;
+            
+            document.getElementById('pdfEmailInput').value = '';
+            alert('Thank you! Your email will open shortly.');
+        }
+
+        // Auto-expand functionality
+        document.getElementById('pdfChallenge').addEventListener('focus', function() {
+            this.style.height = '70px';
+        });
+
+        // PDF-specific detection
+        if (window.location.protocol === 'file:' || navigator.pdfViewerEnabled) {
+            console.log('PDF environment detected - optimizations applied');
+        }
+    </script>
+</body>
+</html>
