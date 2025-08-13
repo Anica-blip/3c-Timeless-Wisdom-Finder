@@ -366,64 +366,167 @@
     </div>
 
     <script>
-        const pdfWisdomDatabase = [
-            {
-                keywords: ['anger', 'mad', 'frustrated', 'annoyed', 'irritated', 'furious'],
-                quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
-                author: "Marcus Aurelius",
-                reflection: "Anger feels like fire consuming us, but wisdom reminds us that our reactions are the one thing we truly control.",
-                prompt: "Write about what aspects of your anger were within your control vs. outside circumstances."
-            },
-            {
-                keywords: ['anxious', 'anxiety', 'worry', 'worried', 'nervous', 'stressed', 'stress'],
-                quote: "If you are facing in the right direction, all you need to do is keep on walking.",
-                author: "Buddhist Proverb",
-                reflection: "Anxiety whispers we need to solve everything at once, but wisdom teaches progress comes one step at a time.",
-                prompt: "Identify one small, concrete action you can take today toward what you're worried about."
-            },
-            {
-                keywords: ['sad', 'sadness', 'depressed', 'down', 'blue', 'melancholy', 'grief'],
-                quote: "The wound is the place where the Light enters you.",
-                author: "Rumi",
-                reflection: "Sadness isn't a flaw to fix but a doorway to deeper understanding and compassion.",
-                prompt: "What has this period of sadness taught you that you might not have learned otherwise?"
-            },
-            {
-                keywords: ['lost', 'confused', 'direction', 'purpose', 'meaning', 'path', 'unclear'],
-                quote: "The journey of a thousand miles begins with one step.",
-                author: "Lao Tzu",
-                reflection: "Feeling lost isn't about lacking destination—it's expecting to see the entire journey from where you stand.",
-                prompt: "What values feel most true to you right now? What one small step aligns with those values?"
-            },
-            {
-                keywords: ['overwhelmed', 'too much', 'busy', 'chaos', 'scattered', 'burden'],
-                quote: "You are not required to finish the work, but neither are you free to abandon it.",
-                author: "Rabbi Tarfon",
-                reflection: "Overwhelm comes from believing we must complete everything perfectly. Focus on your part, release the rest.",
-                prompt: "List what's overwhelming you. Circle only what's truly yours to handle today."
-            },
-            {
-                keywords: ['lonely', 'alone', 'isolated', 'disconnected', 'solitude'],
-                quote: "All cruelty springs from weakness.",
-                author: "Seneca",
-                reflection: "When disconnected from others, we're usually first disconnected from ourselves. Solitude can become sacred space.",
-                prompt: "When alone with yourself, what thoughts arise that you might be avoiding?"
-            },
-            {
-                keywords: ['failure', 'failed', 'mistake', 'wrong', 'embarrassed', 'shame'],
-                quote: "Our greatest glory is not in never falling, but in rising every time we fall.",
-                author: "Confucius",
-                reflection: "'Failure' is often just information about what doesn't work, bringing you closer to what does.",
-                prompt: "How might you reframe your recent 'failure' as tuition paid toward mastery?"
-            },
-            {
-                keywords: ['change', 'transition', 'uncertainty', 'unknown', 'different', 'transformation'],
-                quote: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
-                author: "Alan Watts",
-                reflection: "We resist change by mistaking our current identity for our true self. We're like rivers—always flowing, always becoming.",
-                prompt: "What aspects of your old self are you grieving? What new qualities are trying to emerge?"
-            }
-        ];
+        const pdfWisdomDatabase = {
+            // Anger & Frustration
+            anger: [
+                {
+                    quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+                    author: "Marcus Aurelius",
+                    reflection: "Anger feels like fire consuming us, but wisdom reminds us that our reactions are the one thing we truly control.",
+                    prompt: "Write about what aspects of your anger were within your control vs. outside circumstances."
+                },
+                {
+                    quote: "For every minute you remain angry, you give up sixty seconds of peace of mind.",
+                    author: "Ralph Waldo Emerson",
+                    reflection: "Anger is often a secondary emotion masking hurt, fear, or disappointment. When we hold onto it, we're choosing to replay our pain.",
+                    prompt: "What deeper feeling might be underneath your anger? What would change if you addressed that core emotion instead?"
+                }
+            ],
+
+            // Anxiety & Worry
+            anxiety: [
+                {
+                    quote: "If you are facing in the right direction, all you need to do is keep on walking.",
+                    author: "Buddhist Proverb",
+                    reflection: "Anxiety whispers we need to solve everything at once, but wisdom teaches progress comes one step at a time.",
+                    prompt: "Identify one small, concrete action you can take today toward what you're worried about."
+                },
+                {
+                    quote: "Today I escaped anxiety. Or no, I discarded it, because it was within me, in my own perceptions—not outside.",
+                    author: "Marcus Aurelius",
+                    reflection: "Anxiety lives in our interpretation of events, not in the events themselves. When we change our perspective, we change our experience.",
+                    prompt: "What story are you telling yourself about this situation? What would a more balanced narrative look like?"
+                }
+            ],
+
+            // Sadness & Grief
+            sadness: [
+                {
+                    quote: "The wound is the place where the Light enters you.",
+                    author: "Rumi",
+                    reflection: "Sadness isn't a flaw to fix but a doorway to deeper understanding and compassion.",
+                    prompt: "What has this period of sadness taught you that you might not have learned otherwise?"
+                },
+                {
+                    quote: "The deeper that sorrow carves into your being, the more joy you can contain.",
+                    author: "Kahlil Gibran",
+                    reflection: "Our capacity for pain and joy are connected. When we allow ourselves to feel deeply, we expand our emotional range.",
+                    prompt: "How might this sadness be expanding your capacity for empathy and connection with others?"
+                }
+            ],
+
+            // Feeling Lost
+            lost: [
+                {
+                    quote: "The journey of a thousand miles begins with one step.",
+                    author: "Lao Tzu",
+                    reflection: "Feeling lost isn't about lacking destination—it's expecting to see the entire journey from where you stand.",
+                    prompt: "What values feel most true to you right now? What one small step aligns with those values?"
+                },
+                {
+                    quote: "Not all those who wander are lost.",
+                    author: "J.R.R. Tolkien",
+                    reflection: "Sometimes what feels like being lost is actually exploration. You might be in a season of discovery.",
+                    prompt: "What if this 'lost' feeling is actually your soul asking you to explore new territories about yourself?"
+                }
+            ],
+
+            // Overwhelm
+            overwhelm: [
+                {
+                    quote: "You are not required to finish the work, but neither are you free to abandon it.",
+                    author: "Rabbi Tarfon",
+                    reflection: "Overwhelm comes from believing we must complete everything perfectly. Focus on your part, release the rest.",
+                    prompt: "List what's overwhelming you. Circle only what's truly yours to handle today."
+                },
+                {
+                    quote: "Simplicity is the ultimate sophistication.",
+                    author: "Leonardo da Vinci",
+                    reflection: "When everything feels urgent, nothing truly is. Overwhelm signals we need to return to what matters most.",
+                    prompt: "If you could only accomplish three things this week, what would they be?"
+                }
+            ],
+
+            // Loneliness
+            loneliness: [
+                {
+                    quote: "All cruelty springs from weakness.",
+                    author: "Seneca",
+                    reflection: "When disconnected from others, we're usually first disconnected from ourselves. Solitude can become sacred space.",
+                    prompt: "When alone with yourself, what thoughts arise that you might be avoiding?"
+                },
+                {
+                    quote: "The greatest thing in the world is to know how to belong to oneself.",
+                    author: "Michel de Montaigne",
+                    reflection: "Loneliness often stems from abandoning ourselves in search of external validation. True connection begins with self-acceptance.",
+                    prompt: "What parts of yourself have you been hiding? How might embracing these help you connect more authentically?"
+                }
+            ],
+
+            // Failure & Shame
+            failure: [
+                {
+                    quote: "Our greatest glory is not in never falling, but in rising every time we fall.",
+                    author: "Confucius",
+                    reflection: "'Failure' is often just information about what doesn't work, bringing you closer to what does.",
+                    prompt: "How might you reframe your recent 'failure' as tuition paid toward mastery?"
+                },
+                {
+                    quote: "It is impossible to live without failing at something, unless you live so cautiously that you might as well not have lived at all.",
+                    author: "J.K. Rowling",
+                    reflection: "Failure is proof that you're living boldly. Every achiever has a trail of failures behind them - evidence of courage.",
+                    prompt: "What would you attempt if failure was simply part of the learning process?"
+                }
+            ],
+
+            // Change & Uncertainty
+            change: [
+                {
+                    quote: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
+                    author: "Alan Watts",
+                    reflection: "We resist change by mistaking our current identity for our true self. We're like rivers—always flowing, always becoming.",
+                    prompt: "What aspects of your old self are you grieving? What new qualities are trying to emerge?"
+                },
+                {
+                    quote: "Yesterday I was clever, so I wanted to change the world. Today I am wise, so I am changing myself.",
+                    author: "Rumi",
+                    reflection: "Change is most powerful when it starts within. External circumstances shift naturally when we transform our inner landscape.",
+                    prompt: "What inner shift might create the external change you desire?"
+                }
+            ],
+
+            // Joy & Positive States
+            joy: [
+                {
+                    quote: "Happiness is not something ready made. It comes from your own actions.",
+                    author: "Dalai Lama",
+                    reflection: "Joy isn't a destination but a practice. When we're feeling good, we're often aligned with our values and authentic self.",
+                    prompt: "What actions are contributing to this positive feeling? How can you integrate more of these into daily life?"
+                },
+                {
+                    quote: "The present moment is the only time over which we have dominion.",
+                    author: "Thich Nhat Hanh",
+                    reflection: "Happiness lives in presence. When we're fully here, appreciating what is, we naturally experience contentment.",
+                    prompt: "What are you most grateful for right now? How can you carry this awareness into challenging times?"
+                }
+            ],
+
+            // General Wisdom
+            general: [
+                {
+                    quote: "Be yourself; everyone else is already taken.",
+                    author: "Oscar Wilde",
+                    reflection: "Life's challenges often come from trying to meet expectations that aren't truly ours.",
+                    prompt: "Where might you be betraying your authentic self to meet external expectations?"
+                },
+                {
+                    quote: "The unexamined life is not worth living.",
+                    author: "Socrates",
+                    reflection: "Growth comes through honest self-reflection. By examining our patterns, we gain insight for positive change.",
+                    prompt: "What pattern in your life is asking for attention? What might it be trying to teach you?"
+                }
+            ]
+        };
 
         function togglePDFWisdom() {
             const content = document.getElementById('pdfWisdomContent');
@@ -442,29 +545,14 @@
         }
 
         function revealPDFWisdom() {
-            const challenge = document.getElementById('pdfChallenge').value.toLowerCase().trim();
+            const challenge = document.getElementById('pdfChallenge').value.trim();
             
             if (!challenge) {
                 alert('Please share what\'s on your mind first.');
                 return;
             }
 
-            let selectedWisdom = null;
-            for (let wisdom of pdfWisdomDatabase) {
-                if (wisdom.keywords.some(keyword => challenge.includes(keyword))) {
-                    selectedWisdom = wisdom;
-                    break;
-                }
-            }
-
-            if (!selectedWisdom) {
-                selectedWisdom = {
-                    quote: "Be yourself; everyone else is already taken.",
-                    author: "Oscar Wilde",
-                    reflection: "Life's challenges often come from trying to meet expectations that aren't truly ours.",
-                    prompt: "Where might you be betraying your authentic self to meet external expectations?"
-                };
-            }
+            const selectedWisdom = analyzePDFWisdom(challenge);
 
             document.getElementById('pdfWisdomQuote').textContent = `"${selectedWisdom.quote}"`;
             document.getElementById('pdfWisdomAuthor').textContent = `— ${selectedWisdom.author}`;
@@ -472,6 +560,133 @@
             document.getElementById('pdfJournalPrompt').textContent = selectedWisdom.prompt;
             
             document.getElementById('pdfWisdomResult').style.display = 'block';
+        }
+
+        function analyzePDFWisdom(message) {
+            const lowercaseMessage = message.toLowerCase();
+            const words = lowercaseMessage.split(/\s+/);
+            
+            // Enhanced sentiment and context analysis for PDF
+            const emotionalContext = analyzePDFEmotionalContext(lowercaseMessage, words);
+            const category = determinePDFWisdomCategory(emotionalContext, lowercaseMessage);
+            const wisdomOptions = pdfWisdomDatabase[category] || pdfWisdomDatabase.general;
+            
+            // Select wisdom with variety tracking
+            return selectPDFContextualWisdom(wisdomOptions, emotionalContext);
+        }
+
+        function analyzePDFEmotionalContext(message, words) {
+            const context = {
+                emotions: [],
+                intensity: 'medium',
+                tone: 'neutral',
+                personalPronoun: false,
+                questionType: null
+            };
+
+            // Detect personal pronouns
+            context.personalPronoun = /\b(i|me|my|mine|myself)\b/i.test(message);
+
+            // Analyze emotional indicators
+            const strongNegative = /\b(hate|terrible|awful|horrible|devastating|furious|enraged|disgusted|hopeless|worthless)\b/i;
+            const moderateNegative = /\b(sad|angry|frustrated|worried|anxious|upset|disappointed|confused|lost|tired|stressed)\b/i;
+            
+            const strongPositive = /\b(amazing|wonderful|fantastic|thrilled|ecstatic|grateful|blessed|joyful|excited)\b/i;
+            const moderatePositive = /\b(happy|good|glad|pleased|content|satisfied|hopeful|optimistic)\b/i;
+
+            if (strongNegative.test(message)) {
+                context.intensity = 'high';
+                context.tone = 'negative';
+            } else if (moderateNegative.test(message)) {
+                context.intensity = 'medium';
+                context.tone = 'negative';
+            } else if (strongPositive.test(message)) {
+                context.intensity = 'high';
+                context.tone = 'positive';
+            } else if (moderatePositive.test(message)) {
+                context.intensity = 'medium';
+                context.tone = 'positive';
+            }
+
+            // Detect question types
+            if (/\bwhat.*(meaning|purpose|point)\b/i.test(message)) {
+                context.questionType = 'existential';
+            } else if (/\bhow.*(get|find|do|change)\b/i.test(message)) {
+                context.questionType = 'practical';
+            }
+
+            return context;
+        }
+
+        function determinePDFWisdomCategory(context, message) {
+            // Handle positive states
+            if (context.tone === 'positive' && context.intensity === 'high') {
+                return 'joy';
+            }
+
+            // Existential questions
+            if (context.questionType === 'existential') {
+                return 'lost';
+            }
+
+            // Emotional keyword analysis
+            const emotionalSignals = {
+                anger: /\b(angry|mad|furious|rage|irritated|annoyed|pissed|hate|infuriating)\b/i,
+                anxiety: /\b(anxious|anxiety|worried|worry|nervous|stressed|stress|panic|overwhelmed|scared|fear)\b/i,
+                sadness: /\b(sad|depressed|depression|down|blue|crying|tears|grief|heartbroken|miserable)\b/i,
+                lost: /\b(lost|confused|direction|purpose|meaning|path|unclear|stuck|don't know)\b/i,
+                overwhelm: /\b(overwhelmed|too much|busy|chaos|scattered|burden|can't handle|exhausted)\b/i,
+                loneliness: /\b(lonely|alone|isolated|disconnected|nobody|solitude|abandoned)\b/i,
+                failure: /\b(failed|failure|mistake|wrong|embarrassed|shame|messed up|screwed up)\b/i,
+                change: /\b(change|changing|transition|different|new|uncertainty|unknown|transformation)\b/i
+            };
+
+            const confidence = context.personalPronoun ? 1.5 : 1.0;
+            
+            for (const [category, pattern] of Object.entries(emotionalSignals)) {
+                if (pattern.test(message)) {
+                    if ((context.intensity === 'high' && context.tone === 'negative') || confidence > 1.0) {
+                        return category;
+                    }
+                }
+            }
+
+            return 'general';
+        }
+
+        let pdfLastSelectedIndices = new Set();
+        
+        function selectPDFContextualWisdom(wisdomOptions, context) {
+            // Ensure variety - don't repeat recent selections
+            let availableOptions = wisdomOptions.filter((_, index) => !pdfLastSelectedIndices.has(index));
+            
+            if (availableOptions.length === 0) {
+                pdfLastSelectedIndices.clear();
+                availableOptions = wisdomOptions;
+            }
+
+            // Select based on context
+            let selectedWisdom;
+            if (context.intensity === 'high' && availableOptions.length > 1) {
+                selectedWisdom = availableOptions[0];
+            } else if (context.personalPronoun && availableOptions.length > 1) {
+                selectedWisdom = availableOptions[Math.floor(availableOptions.length / 2)];
+            } else {
+                const randomIndex = Math.floor(Math.random() * availableOptions.length);
+                selectedWisdom = availableOptions[randomIndex];
+            }
+
+            // Track selection
+            const originalIndex = wisdomOptions.indexOf(selectedWisdom);
+            pdfLastSelectedIndices.add(originalIndex);
+            
+            // Keep only last 2 selections for PDF (smaller memory footprint)
+            if (pdfLastSelectedIndices.size > 2) {
+                const firstIndex = Array.from(pdfLastSelectedIndices)[0];
+                pdfLastSelectedIndices.delete(firstIndex);
+            }
+
+            return selectedWisdom;
         }
 
         function subscribePDFWisdom() {
