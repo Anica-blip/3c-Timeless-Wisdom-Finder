@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeless Wisdom Finder - Compact</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f9fafb;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* WISDOM FINDER SECTION */
+        .wisdom-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: linear-gradient(135deg, #5e17e6, #4c1d95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(94, 23, 230, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .wisdom-header {
+            background: linear-gradient(135deg, #997a64, #b8956b);
+            padding: 15px 20px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .wisdom-header h3 {
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        .wisdom-header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin: 2px 0 0 0;
+        }
+
+        .expand-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(0deg);
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+
+        .wisdom-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: white;
+        }
+
+        .wisdom-content.expanded {
+            max-height: 600px;
+        }
+
+        .wisdom-inner {
+            padding: 20px;
+        }
+
+        .compact-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-family: inherit;
+            resize: none;
+            height: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .compact-textarea:focus {
+            outline: none;
+            border-color: #997a64;
+            height: 80px;
+            box-shadow: 0 0 0 3px rgba(153, 122, 100, 0.1);
+        }
+
+        .compact-button {
+            width: 100%;
+            background: linear-gradient(135deg, #997a64, #b8956b);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .compact-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(153, 122, 100, 0.3);
+        }
+
+        .wisdom-result {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #997a64;
+        }
+
+        .compact-quote {
+            font-size: 1em;
+            font-style: italic;
+            color: #5e17e6;
+            margin-bottom: 8px;
+        }
+
+        .compact-author {
+            text-align: right;
+            color: #6b7280;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+        }
+
+        .compact-reflection {
+            font-size: 0.9em;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+
+        .compact-journal {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #5e17e6;
+            font-size: 0.85em;
+        }
+
+        .compact-journal h4 {
+            color: #997a64;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        /* EMAIL CTA SECTION */
+        .email-cta-container {
+            max-width: 600px;
+            margin: 30px auto 20px;
+            background: linear-gradient(135deg, #5e17e6, #4c1d95);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 15px rgba(94, 23, 230, 0.2);
+        }
+
+        .email-cta-container h3 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .email-cta-container p {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 15px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 8px;
+            max-width: 350px;
+            margin: 0 auto;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9em;
+        }
+
+        .email-button {
+            background: #997a64;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .email-button:hover {
+            background: #7a5f4f;
+        }
+
+        @media (max-width: 600px) {
+            .wisdom-container, .email-cta-container {
+                margin: 20px 10px;
+                border-radius: 10px;
+            }
+            
+            .wisdom-header {
+                padding: 12px 15px;
+            }
+            
+            .wisdom-inner {
+                padding: 15px;
+            }
+            
+            .email-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* Blog content simulation */
+        .blog-content {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .blog-content h2 {
+            color: #5e17e6;
+            margin: 30px 0 15px 0;
+        }
+
+        .blog-content p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Simulated blog content -->
+    <div class="blog-content">
+        <h2>Finding Balance in Challenging Times</h2>
+        <p>Life has a way of throwing curveballs when we least expect them. Whether it's work stress, relationship challenges, or that nagging feeling that something just isn't right, we all face moments where we need guidance...</p>
+    </div>
+
+    <!-- WISDOM FINDER - COMPACT VERSION -->
+    <div class="wisdom-container">
+        <div class="wisdom-header" onclick="toggleWisdomExpander()">
+            <h3>Tap Into Ancient Wisdom</h3>
+            <p>60 seconds of reflection that could shift your perspective</p>
+            <span class="expand-arrow">▼</span>
+        </div>
+        
+        <div class="wisdom-content" id="wisdomContent">
+            <div class="wisdom-inner">
+                <textarea 
+                    id="challenge" 
+                    class="compact-textarea"
+                    placeholder="What's on your mind right now?"
+                ></textarea>
+                
+                <button class="compact-button" onclick="revealWisdom()">Reveal My Wisdom</button>
+                
+                <div id="wisdomResult" class="wisdom-result">
+                    <div class="compact-quote" id="wisdomQuote"></div>
+                    <div class="compact-author" id="wisdomAuthor"></div>
+                    <div class="compact-reflection" id="wisdomReflection"></div>
+                    <div class="compact-journal">
+                        <h4>✨ Journal Prompt:</h4>
+                        <p id="journalPrompt"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue blog content -->
+    <div class="blog-content">
+        <p>Ancient wisdom traditions understood something we often forget in our fast-paced world: that our inner state shapes our outer experience. When we pause to reflect, we create space for insight to emerge...</p>
+        
+        <p>The Stoics called this "the discipline of desire" - learning to want what we have rather than having what we want. Buddhist teachings speak of acceptance and mindful presence. Indigenous wisdom traditions emphasize our connection to something larger than ourselves...</p>
+    </div>
+
+    <!-- EMAIL CTA - SEPARATE COMPACT SECTION -->
+    <div class="email-cta-container">
+        <h3>➤ Love this kind of guidance?</h3>
+        <p>Get weekly ancient wisdom delivered to your inbox</p>
+        <div class="email-form">
+            <input type="email" class="email-input" placeholder="Your email" id="emailInput">
+            <button class="email-button" onclick="subscribeToWisdom()">Join Free</button>
+        </div>
+    </div>
+
+    <!-- Continue blog content -->
+    <div class="blog-content">
+        <p>Remember, seeking wisdom isn't about having all the answers - it's about asking better questions and remaining open to the guidance that surrounds us every day.</p>
+    </div>
+
+    <script>
+        const wisdomDatabase = [
+            {
+                keywords: ['anger', 'mad', 'frustrated', 'annoyed', 'irritated', 'furious'],
+                quote: "You have power over your mind - not outside events. Realize this, and you will find strength.",
+                author: "Marcus Aurelius",
+                reflection: "Anger feels like fire consuming us, but wisdom reminds us that our reactions are the one thing we truly control. When triggered, ask: 'What part is actually within my power?'",
+                prompt: "Write about a recent situation that angered you. What aspects were outside your control, and what small part could you influence differently next time?"
+            },
+            {
+                keywords: ['anxious', 'anxiety', 'worry', 'worried', 'nervous', 'stressed', 'stress'],
+                quote: "If you are facing in the right direction, all you need to do is keep on walking.",
+                author: "Buddhist Proverb",
+                reflection: "Anxiety whispers we need to solve everything at once, but wisdom teaches progress comes one step at a time. Ground yourself in this moment, this breath, this single next step.",
+                prompt: "Identify one small, concrete action you can take today toward something you've been worrying about. How does focusing on this single step change how it feels?"
+            },
+            {
+                keywords: ['sad', 'sadness', 'depressed', 'down', 'blue', 'melancholy', 'grief'],
+                quote: "The wound is the place where the Light enters you.",
+                author: "Rumi",
+                reflection: "Sadness isn't a flaw to fix but a doorway to deeper understanding. Your tender moments often crack you open to greater compassion and wisdom.",
+                prompt: "What has this period of sadness taught you that you might not have learned otherwise? How might this difficult season be preparing you for future wisdom?"
+            },
+            {
+                keywords: ['lost', 'confused', 'direction', 'purpose', 'meaning', 'path', 'unclear'],
+                quote: "The journey of a thousand miles begins with one step.",
+                author: "Lao Tzu",
+                reflection: "Feeling lost isn't about lacking destination - it's expecting to see the entire journey from where you stand. Clarity comes through movement, not just thinking.",
+                prompt: "What values feel most true to you right now? Describe one tiny experiment you could try this week that aligns with those values, without needing to know where it leads."
+            },
+            {
+                keywords: ['overwhelmed', 'too much', 'busy', 'chaos', 'scattered', 'burden'],
+                quote: "You are not required to finish the work, but neither are you free to abandon it.",
+                author: "Rabbi Tarfon",
+                reflection: "Overwhelm comes from believing we must complete everything perfectly and immediately. You're responsible for your part, but not for controlling all outcomes.",
+                prompt: "List what's overwhelming you. Circle only what's truly yours to handle. For those items, what would 'good enough' look like instead of perfect?"
+            },
+            {
+                keywords: ['lonely', 'alone', 'isolated', 'disconnected', 'solitude'],
+                quote: "All cruelty springs from weakness.",
+                author: "Seneca",
+                reflection: "When disconnected from others, we're usually first disconnected from ourselves. The path back to belonging starts with befriending your own inner world.",
+                prompt: "When alone with yourself, what thoughts arise that you might be avoiding? How could you speak to yourself with the kindness you'd offer a dear friend?"
+            },
+            {
+                keywords: ['failure', 'failed', 'mistake', 'wrong', 'embarrassed', 'shame'],
+                quote: "Our greatest glory is not in never falling, but in rising every time we fall.",
+                author: "Confucius",
+                reflection: "'Failure' is often just information about what doesn't work, bringing you closer to what does. Your willingness to try again is where your true strength lies.",
+                prompt: "Think of someone you admire. What failures do you imagine they experienced? How does reframing your recent 'failure' as tuition toward mastery change your relationship with it?"
+            },
+            {
+                keywords: ['change', 'transition', 'uncertainty', 'unknown', 'different', 'transformation'],
+                quote: "The only way to make sense out of change is to plunge into it, move with it, and join the dance.",
+                author: "Alan Watts",
+                reflection: "We resist change by mistaking our current identity for our true self. We're more like rivers than stones - always flowing, always becoming.",
+                prompt: "What aspects of your old self are you grieving? What new qualities are trying to emerge? How might you welcome this transition as collaboration with life?"
+            }
+        ];
+
+        function toggleWisdomExpander() {
+            const content = document.getElementById('wisdomContent');
+            const arrow = document.querySelector('.expand-arrow');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                arrow.style.transform = 'translateY(-50%) rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                arrow.style.transform = 'translateY(-50%) rotate(180deg)';
+                // Auto-focus on textarea when expanded
+                setTimeout(() => {
+                    document.getElementById('challenge').focus();
+                }, 400);
+            }
+        }
+
+        function revealWisdom() {
+            const challenge = document.getElementById('challenge').value.toLowerCase().trim();
+            
+            if (!challenge) {
+                alert('Please share what\'s on your mind first.');
+                return;
+            }
+
+            // Find matching wisdom
+            let selectedWisdom = null;
+            for (let wisdom of wisdomDatabase) {
+                if (wisdom.keywords.some(keyword => challenge.includes(keyword))) {
+                    selectedWisdom = wisdom;
+                    break;
+                }
+            }
+
+            // Fallback wisdom
+            if (!selectedWisdom) {
+                selectedWisdom = {
+                    quote: "Be yourself; everyone else is already taken.",
+                    author: "Oscar Wilde",
+                    reflection: "Life's challenges often come from trying to meet expectations that aren't truly ours. Sometimes our greatest breakthrough comes from the radical act of being genuinely who we are.",
+                    prompt: "In this current challenge, where might you be betraying your authentic self? What would change if you approached this from your truest, most honest self?"
+                };
+            }
+
+            // Display wisdom
+            document.getElementById('wisdomQuote').textContent = `"${selectedWisdom.quote}"`;
+            document.getElementById('wisdomAuthor').textContent = `— ${selectedWisdom.author}`;
+            document.getElementById('wisdomReflection').textContent = selectedWisdom.reflection;
+            document.getElementById('journalPrompt').textContent = selectedWisdom.prompt;
+            
+            // Show result
+            document.getElementById('wisdomResult').style.display = 'block';
+        }
+
+        function subscribeToWisdom() {
+            const email = document.getElementById('emailInput').value.trim();
+            
+            if (!email || !email.includes('@')) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+
+            const subject = encodeURIComponent('Inner Growth Letters Subscription');
+            const body = encodeURIComponent(`Hello!
+
+I'd love to receive weekly ancient wisdom from 3C Thread To Success.
+
+Email: ${email}
+
+Thank you!`);
+            
+            window.location.href = `mailto:3c.innertherapy@gmail.com?subject=${subject}&body=${body}`;
+            
+            document.getElementById('emailInput').value = '';
+            alert('Thank you! Your email will open shortly.');
+        }
+
+        // Auto-expand textarea on focus
+        document.getElementById('challenge').addEventListener('focus', function() {
+            this.style.height = '80px';
+        });
+    </script>
+</body>
+</html>
